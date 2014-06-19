@@ -40,3 +40,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 gem 'devise'
 gem 'bootstrap-sass'
+gem 'haml'
+gem 'erb2haml'
+gem 'html2haml'
