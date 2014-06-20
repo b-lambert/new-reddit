@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620072432) do
+ActiveRecord::Schema.define(version: 20140620075928) do
 
   create_table "posts", force: true do |t|
     t.string   "name"
     t.string   "url"
     t.string   "username"
-    t.integer  "votes"
+    t.integer  "votes",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
