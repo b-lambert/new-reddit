@@ -1,8 +1,10 @@
+<%= javascript_include_tag :defaults %>
 <h1>Listing posts</h1>
 
 <table>
   <thead>
     <tr>
+      <th colspan="2">Votes</th>
       <th>Name</th>
       <th>Url</th>
       <th>Username</th>
@@ -14,6 +16,8 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
+        <td><%= %></td>
+        <td><%= %></td>
         <td><%= post.name %></td>
         <td><%= post.url %></td>
         <td><%= post.username %></td>

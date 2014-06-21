@@ -1,6 +1,34 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:vote]
 
+  def vote
+    @post = Post.find(params[:post_id])
+    @vote = Vote.find(params[:post_id], params[:user_id])
+    score_change = 0
+    #If the user has not voted on this link, change the score accordingly.
+    if @vote.blank?
+      score_change = params[:score]
+    elsif @vote.is_upvote != params[:score]
+      #Change the direction of the vote stored in the database
+      @vote.update_attribute :is_upvote, !@vote.is_upvote
+      #If the user is down-voting a previously upvoted post:
+      if @vote.is_up
+        score_change = -2
+      #If the user is up-voting a previously down-voted post:
+      else
+        score_change = 2
+      end
+    end
+    #Don't do anything if the user isn't allowed to up-vote this.
+    if score_change != 0
+      @post.update_attribute :score, @post.score + score_change
+      #Create vote object indicating the user's vote
+      vote = Vote.new(is_upvote: params[:score], post_id: params[:post_id], user_id: current_user.id)
+      vote.save
+    end
+    render_text @post.score
+  end
   # GET /posts
   # GET /posts.json
   def index
