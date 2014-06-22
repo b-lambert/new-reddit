@@ -1,9 +1,9 @@
-<%= javascript_include_tag :defaults %>
 <h1>Listing posts</h1>
 
 <table>
   <thead>
     <tr>
+      <th>Score</th>
       <th colspan="2">Votes</th>
       <th>Name</th>
       <th>Url</th>
@@ -16,8 +16,11 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= %></td>
-        <td><%= %></td>
+        <td><%= post.reputation_for(:votes).to_i %></td>
+        <td>
+          <%= link_to "up", vote_post_path(post, type: "up"), method: "post" %>
+          | 
+          <%= link_to "down", vote_post_path(post, type: "down"), method: "post" %></td>
         <td><%= post.name %></td>
         <td><%= post.url %></td>
         <td><%= post.username %></td>
