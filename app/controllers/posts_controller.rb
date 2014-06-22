@@ -14,6 +14,7 @@ class PostsController < ApplicationController
     comment = @post.comments.create
     comment.comment = params[:comment][:comment]
     comment.user_id = current_user.id
+    comment.title = current_user.email
     comment.save
     redirect_to :back, notice: "Comment accepted."
   end
