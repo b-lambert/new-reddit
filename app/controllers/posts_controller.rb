@@ -9,6 +9,15 @@ class PostsController < ApplicationController
     redirect_to :back, notice: "Vote Registered."
   end
 
+  def comment
+    @post = Post.find(params[:id])
+    comment = @post.comments.create
+    comment.comment = params[:comment][:comment]
+    comment.user_id = current_user.id
+    comment.save
+    redirect_to :back, notice: "Comment accepted."
+  end
+
   # GET /posts
   # GET /posts.json
   def index

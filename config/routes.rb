@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
-
+  root to: 'posts#index'
   devise_for :users
+
   resources :sessions
   resources :posts do
     member { post :vote }
-  end
 
-  root to: 'posts#index'
+  end
+  resources :posts do
+    resources :comments
+  end
+  post 'posts/:id/comment' => 'posts#comment'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

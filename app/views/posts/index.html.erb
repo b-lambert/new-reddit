@@ -17,7 +17,7 @@
       <tr>
         <td><%= post.reputation_for(:votes).to_i %></td>
         <td colspan="2">
-          <%= link_to "up", vote_post_path(post, type: "up"), method: "post" %>
+          <%= link_to "up", vote_post_path(post, type: "up"), method: "post", remote: true %>
           | 
           <%= link_to "down", vote_post_path(post, type: "down"), method: "post" %></td>
         <td><%= post.name %></td>
