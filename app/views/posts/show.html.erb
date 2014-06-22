@@ -21,14 +21,14 @@
 <% end %>
 <%= link_to 'Return to front page', posts_path %>
 <h3>Comments</h3>
-<div id="comments">
+
+<table class="table">
 <% for comment in @post.comments %>
-  <div class="comment">
-  	<i><%= comment.title %> on <%= comment.created_at.strftime("%B %d, %Y") %>:</i>
-    <p><%= simple_format comment.comment %></p>
-  </div>
+	<tr>
+  	<td><i><%= comment.title %> on <%= comment.created_at.strftime("%B %d, %Y") %>:</i><p><%= simple_format comment.comment %></p></td>
+  </tr>
 <% end %>
-</div>
+</table>
 
 <h3>New Comment</h3>
 
