@@ -16,9 +16,10 @@
   <strong>Score:</strong>
   <%= @post.reputation_for(:votes).to_i %>
 </p>
-
+<% if @post.username == @current_user.email %>
 <%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<% end %>
+<%= link_to 'Return to front page', posts_path %>
 <h3>Comments</h3>
 <div id="comments">
 <% for comment in @post.comments %>

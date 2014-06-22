@@ -33,6 +33,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @current_user = current_user
   end
 
   # GET /posts/new
@@ -49,6 +50,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.url = url_with_protocol(@post.url)
+    # If the user is not anonymous, change the username to the logged in user's email.
+    if @post.username.blank?
+      @post.username = current_user.email
+    end
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
