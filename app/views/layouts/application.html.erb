@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Newreddit</title>
+  <title>New Reddit</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+<div class="container"
 <body>
-
+<h1><%= image_tag "/assets/new_reddit.png" %>New Reddit</h1>
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
@@ -18,4 +19,5 @@
 <%= yield %>
 
 </body>
+</div>
 </html>
