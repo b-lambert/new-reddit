@@ -18,10 +18,15 @@ class PostsController < ApplicationController
     redirect_to :back, notice: "Comment accepted."
   end
 
+  def url_with_protocol(url)
+    /^http/.match(url) ? url : "http://#{url}"
+  end
+
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+    @current_user = current_user
   end
 
   # GET /posts/1
@@ -42,7 +47,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
+    @post.url = url_with_protocol(@post.url)
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
