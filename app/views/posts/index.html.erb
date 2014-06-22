@@ -4,7 +4,9 @@
   <thead>
     <tr>
       <th>Score</th>
+      <% if user_signed_in? %>
       <th colspan="2">Votes</th>
+      <% end %>
       <th>Name</th>
       <th>Link</th>
       <th>Submitted by:</th>
@@ -16,17 +18,20 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.reputation_for(:votes).to_i %></td>
+        <% if user_signed_in? %>
         <td colspan="2">
           <%= link_to "Upvote", vote_post_path(post, type: "up"), method: "post" %>
           | 
-          <%= link_to "Downvote", vote_post_path(post, type: "down"), method: "post" %></td>
-        <td><%= post.name %></td>
+          <%= link_to "Downvote", vote_post_path(post, type: "down"), method: "post" %>
+        </td>
+        <% end %>
+        <td><strong><%= post.name %></strong></td>
         <td><%= link_to post.url, post.url %></td>
         <td><%= post.username %></td>
         <td><%= link_to 'Read Comments', post %></td>
         <% if post.username == @current_user.email %>
           <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure you want to delete this post?' } %></td>
         <% else %>
           <td colspan="2">
         <% end %>
