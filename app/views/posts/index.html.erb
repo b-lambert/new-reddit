@@ -8,7 +8,6 @@
       <th>Name</th>
       <th>Url</th>
       <th>Username</th>
-      <th>Votes</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,14 +16,13 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.reputation_for(:votes).to_i %></td>
-        <td>
+        <td colspan="2">
           <%= link_to "up", vote_post_path(post, type: "up"), method: "post" %>
           | 
           <%= link_to "down", vote_post_path(post, type: "down"), method: "post" %></td>
         <td><%= post.name %></td>
         <td><%= post.url %></td>
         <td><%= post.username %></td>
-        <td><%= post.votes %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
