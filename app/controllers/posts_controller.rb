@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, only: [:vote]
+  before_filter :authenticate_user!, only: [:vote, :comment]
 
   def vote
     value = params[:type] == "up" ? 1 : -1
@@ -11,12 +11,9 @@ class PostsController < ApplicationController
 
   def comment
     @post = Post.find(params[:id])
-    comment = @post.comments.create
-    comment.comment = params[:comment][:comment]
-    comment.user_id = current_user.id
-    comment.title = current_user.email
-    comment.save
-    redirect_to :back, notice: "Comment accepted."
+    comment = @post.comments.create(comment: params[:comment][:comment], title: current_user.email, user_id: current_user.id)
+    flash[:notice] = "Comment accepted!"
+    redirect_to post_path(@post)
   end
 
   def url_with_protocol(url)
@@ -27,13 +24,11 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
-    @current_user = current_user
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @current_user = current_user
   end
 
   # GET /posts/new

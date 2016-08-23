@@ -16,8 +16,8 @@
   <strong>Score:</strong>
   <%= @post.reputation_for(:votes).to_i %>
 </p>
-<% if @post.username == @current_user.email %>
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<% if user_signed_in? && @post.username == current_user.email %>
+  <%= link_to 'Edit', edit_post_path(@post) %> |
 <% end %>
 <%= link_to 'Return to front page', posts_path %>
 <h3>Comments</h3>
@@ -30,9 +30,10 @@
 <% end %>
 </table>
 
-<h3>New Comment</h3>
+<% if user_signed_in? %>
+  <h3>New Comment</h3>
 
-<%= form_tag controller: "posts", action: "comment", id: @post.id %>
+  <%= form_tag controller: "posts", action: "comment", id: @post.id %>
   <%= text_area "comment", "comment", :rows => 5, :cols => 50 %> <br />
   <%= submit_tag "Submit Comment" %>
-</form>
+<% end %>
